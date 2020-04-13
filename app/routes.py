@@ -4,6 +4,7 @@ from app import app
 import os
 from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
+from app.forms import LoginForm
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS: Set[str] = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -14,10 +15,26 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 @app.route('/index')
-def index(name=None):
-    # return "Welcome to image handler!"
-    return render_template('upload.html', name=name)
+def index():
+    user = {'username': 'Hui'}
+    posts = [
+        {
+            'author': {'username': 'John'},
+            'body': 'Beautiful day in Beijing!'
+        },
+        {
+            'author': {'username': 'Susan'},
+            'body': 'The Avengers movie was so cool!'
+        }
+    ]
+    return render_template('index.html', title='Home', user=user, posts=posts)
 
+
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Sign In', form=form)
+    pass
 
 @app.route('/upload.html')
 def upload_html(name=None):
