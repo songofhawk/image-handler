@@ -21,7 +21,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/index')
 @login_required
 def index():
-    user = User({'username': 'Hui'})
     posts = [
         {
             'author': {'username': 'John'},
